@@ -9,7 +9,7 @@
 #create admin user
   User.destroy_all
   User.create!(
-    email: "admin@example.com", password: "12345678", role: "admin"
+    email: "admin@example.com", password: "12345678", role: "Admin"
     )
   puts "Default admin created!"
 
@@ -24,7 +24,8 @@
       name: data["name"],
       email: data["email"],
       password: data["password"],
-      avatar: data["photo"]
+      avatar: data["photo"],
+      role: "Normal"
       )
   end
   puts "fake user created!"
