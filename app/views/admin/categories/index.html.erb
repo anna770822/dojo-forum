@@ -1,0 +1,13 @@
+<%= link_to "User List" , admin_users_path %>
+<%= form_for [:admin, @category] do |f|%>
+  <%= f.label :name, "Category Name"%>
+  <%= f.text_field :name %>
+
+  <%= f.submit%>
+<%end%>
+
+<% @categories.each do |category|%>
+  <%= category.name %>
+  <%= link_to "Edit",  admin_categories_path(id: category.id)%>
+  <%= link_to "Delete", admin_category_path(category), method: :delete%>
+<%end%>
