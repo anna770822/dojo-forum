@@ -35,6 +35,8 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'devise'
 gem 'rest-client'
+gem 'bootstrap', '~> 4.1.0'
+gem 'jquery-rails'
 
 
 group :development, :test do
