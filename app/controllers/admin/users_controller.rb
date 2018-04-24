@@ -6,13 +6,13 @@ class Admin::UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    @user.update!(user_params)
+    @user.update(user_param)
     redirect_to admin_users_path
   end
 
   private
 
-  def user_params
+  def user_param
     params.require(:user).permit(:name, :email, :role)
   end
 end

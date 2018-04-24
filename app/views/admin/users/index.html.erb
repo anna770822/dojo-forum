@@ -13,23 +13,11 @@
           <td><%= user.name %></td>
           <td><%= user.email %></td>
           <td>
-            <form>
-              <%= form_for [:admin, user], method: :patch do |f|%>
-                <div class="form-group">
-                  <select class="form-control" id="exampleFormControlSelect1">
-                    <% if user.role == "Admin" %>
-                      <option>Admin</option>
-                      <option>Normal</option>
-                    <%else%>
-                      <option>Normal</option>
-                      <option>Admin</option>
-                    <%end%>
-                  </select>
-                </div>
-                <%= f.submit%>
-              <%end%>
-            </form>
-        </td>
+            <%= form_for [:admin, user], url: admin_user_path(id: user.id), method: :put do |f| %>
+              <%= f.text_field :role%>
+              <%= f.submit%>
+            <%end%>
+          </td>
         </tr>
       <% end%>
     <tr>
