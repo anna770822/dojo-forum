@@ -12,3 +12,19 @@
     email: "admin@example.com", password: "12345678", role: "admin"
     )
   puts "Default admin created!"
+
+# create fake user
+
+  url = "https://uinames.com/api/?ext&region=england"
+
+  20.times do 
+    response = RestClient.get(url)
+    data = JSON.parse(response.body)
+    user = User.create!(
+      name: data["name"],
+      email: data["email"],
+      password: data["password"],
+      avatar: data["photo"]
+      )
+  end
+  puts "fake user created!"
