@@ -1,0 +1,37 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Role</th>
+      <th>#</th>
+    </tr>
+  </thead>
+  <tbody>
+      <% @users.each do |user|%>
+        <tr>
+          <td><%= user.name %></td>
+          <td><%= user.email %></td>
+          <td>
+            <form>
+              <%= form_for [:admin, user], method: :patch do |f|%>
+                <div class="form-group">
+                  <select class="form-control" id="exampleFormControlSelect1">
+                    <% if user.role == "Admin" %>
+                      <option>Admin</option>
+                      <option>Normal</option>
+                    <%else%>
+                      <option>Normal</option>
+                      <option>Admin</option>
+                    <%end%>
+                  </select>
+                </div>
+                <%= f.submit%>
+              <%end%>
+            </form>
+        </td>
+        </tr>
+      <% end%>
+    <tr>
+  </tbody>
+</table>
