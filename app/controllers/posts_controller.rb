@@ -21,7 +21,7 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @comment = Comment.new
-    @comments = Comment.all
+    @comments = Comment.where(post_id: @post.id).page(params[:page]).per(20)
   end
 
   def destroy

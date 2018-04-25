@@ -1,7 +1,8 @@
+<div>
 <%= image_tag @post.user.check_avatar(@post.user)%>
 <%= @post.user.name%>
 <%= @post.content%>
-<% if current_user == @post.user %>
+<% if current_user == @post.user || current_user.role == "Admin" %>
   <%= link_to "Delete", post_path(@post), method: :delete%>
 <%end%>
 <br/>
@@ -9,7 +10,7 @@
   <%= image_tag comment.user.check_avatar(comment.user)%>
   <%= comment.user.name%>
   <%= comment.content%>
-  <% if current_user == comment.user %>
+  <% if current_user == comment.user || current_user.role == "Admin" %>
     <%= link_to "Delete", post_comment_path(post_id: @post.id, comment_id: comment.id), method: :delete%>
   <%end%>
 <%end%>
@@ -19,3 +20,5 @@
   <%= f.text_area :content%>
   <%= f.submit%>
 <%end%>
+<%= paginate @comments %>
+</div>
