@@ -1,5 +1,21 @@
 <%= link_to "New Post" , new_post_path %>
-<% @posts.each do |post| %>
-  <%= post.title %>
-  <%= post.content %>
-<%end%>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Replies Count</th>
+      <th>Title</th>
+      <th>Last replies at</th>
+      <th>Viewed count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @posts.each do |post| %>
+      <tr>
+        <td>#</td>
+        <td><%= link_to "#{post.title}", post_path(post) %></td>
+        <td>#</td>
+        <td>#</td>
+      </tr>
+    <%end%>
+  </tbody>
+</table>
