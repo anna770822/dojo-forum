@@ -2,14 +2,15 @@
 <%= image_tag @post.user.check_avatar(@post.user)%>
 <%= @post.user.name%>
 <%= @post.content%>
-<% if current_user == @post.user || current_user.role == "Admin" %>
-  <%= link_to "Delete", post_path(@post), method: :delete%>
-<%end%>
+  <% if current_user == @post.user || current_user.role == "Admin" %>
+    <%= link_to "Delete", post_path(@post), method: :delete%>
+  <%end%>
 <br/>
 <% @comments.each do |comment| %>
   <%= image_tag comment.user.check_avatar(comment.user)%>
   <%= comment.user.name%>
   <%= comment.content%>
+  <%= image_tag comment.image, width: '300px' %>
   <% if current_user == comment.user || current_user.role == "Admin" %>
     <%= link_to "Delete", post_comment_path(post_id: @post.id, comment_id: comment.id), method: :delete%>
   <%end%>
@@ -18,6 +19,9 @@
 
 <%= form_for [@post, @comment] do |f|%>
   <%= f.text_area :content%>
+  <%= f.label :image, "Photo" %>
+  <%= image_tag @comment.image, width: '300px' if @comment.image? %>
+  <%= f.file_field :image %>
   <%= f.submit%>
 <%end%>
 <%= paginate @comments %>
