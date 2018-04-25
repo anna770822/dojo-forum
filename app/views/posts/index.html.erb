@@ -13,7 +13,12 @@
       <tr>
         <td><%= post.comments.count%></td>
         <td><%= link_to "#{post.title}", post_path(post) %></td>
-        <td>#</td>
+        <td><% if post.comments.count == 0 %>
+            <%= post.updated_at %>
+          <%else%>
+            <%= post.comments.last.updated_at%>
+          <%end%>
+        </td>
         <td>#</td>
       </tr>
     <%end%>
