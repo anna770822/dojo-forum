@@ -1,4 +1,5 @@
 class Post < ApplicationRecord
+  mount_uploader :image, PostUploader
   has_many :comments
   has_many :commented_users, through: :comments , source: :user
   
