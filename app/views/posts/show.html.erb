@@ -1,0 +1,19 @@
+<%= image_tag @post.user.avatar%>
+<%= @post.user.name%>
+<%= @post.content%>
+<% if current_user == @post.user %>
+
+<%= link_to "Delete", post_path(@post), method: :delete%>
+<%end%>
+<br/>
+<% @comments.each do |comment| %>
+  <%= image_tag comment.user.avatar%>
+  <%= comment.user.name%>
+  <%= comment.content%>
+<%end%>
+
+
+<%= form_for [@post, @comment] do |f|%>
+  <%= f.text_area :content%>
+  <%= f.submit%>
+<%end%>
