@@ -12,4 +12,12 @@ class User < ApplicationRecord
   def admin?
     self.role == "Admin"
   end
+
+  def check_avatar(user)
+    if user.avatar.nil?
+      "avatar.png"
+    else
+      user.avatar
+    end
+  end
 end

@@ -1,15 +1,17 @@
-<%= image_tag @post.user.avatar%>
+<%= image_tag @post.user.check_avatar(@post.user)%>
 <%= @post.user.name%>
 <%= @post.content%>
 <% if current_user == @post.user %>
-
-<%= link_to "Delete", post_path(@post), method: :delete%>
+  <%= link_to "Delete", post_path(@post), method: :delete%>
 <%end%>
 <br/>
 <% @comments.each do |comment| %>
-  <%= image_tag comment.user.avatar%>
+  <%= image_tag comment.user.check_avatar(comment.user)%>
   <%= comment.user.name%>
   <%= comment.content%>
+  <% if current_user == comment.user %>
+    <%= link_to "Delete", post_comment_path(post_id: @post.id, comment_id: comment.id), method: :delete%>
+  <%end%>
 <%end%>
 
 
