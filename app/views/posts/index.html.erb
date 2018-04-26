@@ -19,7 +19,7 @@
             <%= post.comments.last.updated_at%>
           <%end%>
         </td>
-        <td>#</td>
+        <td><%= "#{post.impressionist_count}" %></td>
       </tr>
     <%end%>
   </tbody>
