@@ -5,7 +5,7 @@
       <th><%= sort_link @q, :comment_counts%></th>
       <th><%= sort_link @q, :title %></th>
       <th><%= sort_link @q, :updated_at %></th>
-      <th>View Count</th>
+      <th><%= sort_link @q, :view_counts %></th>
     </tr>
   </thead>
   <tbody>
@@ -19,7 +19,7 @@
             <%= post.comments.last.updated_at%>
           <%end%>
         </td>
-        <td><%= "#{post.impressionist_count}" %></td>
+        <td><%= post.view_counts %></td>
       </tr>
     <%end%>
   </tbody>

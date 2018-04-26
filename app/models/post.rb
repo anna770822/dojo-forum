@@ -1,5 +1,5 @@
 class Post < ApplicationRecord
-  is_impressionable
+  is_impressionable :counter_cache => true, :column_name => :view_counts
   mount_uploader :image, PostUploader
   has_many :comments, dependent: :destroy
   has_many :commented_users, through: :comments , source: :user
