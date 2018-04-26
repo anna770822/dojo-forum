@@ -2,7 +2,8 @@ class PostsController < ApplicationController
   skip_before_action :authenticate_user!, only: :index
   impressionist actions: [:show]
   def index
-    @posts = Post.page(params[:page]).per(20)
+    @q = Post.ransack(params[:q])
+    @posts = @q.result(distinct: true).page(params[:page]).per(20)
   end
 
   def new

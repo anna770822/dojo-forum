@@ -2,10 +2,10 @@
 <table class="table">
   <thead>
     <tr>
-      <th>Replies Count</th>
-      <th>Title</th>
-      <th>Last replies at</th>
-      <th>Viewed count</th>
+      <th><%= sort_link @q, :comment_counts%></th>
+      <th><%= sort_link @q, :title %></th>
+      <th><%= sort_link @q, :updated_at %></th>
+      <th>View Count</th>
     </tr>
   </thead>
   <tbody>

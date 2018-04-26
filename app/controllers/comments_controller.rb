@@ -5,8 +5,8 @@ class CommentsController < ApplicationController
     @post = Post.find(params[:post_id])
     @comment = @post.comments.new(comment_params)
     @comment.user = current_user
+    @post.comment_counts
     @comment.save
-    @post.comment_counts = @post.comments.count
     redirect_to post_path(@post)
   end
 

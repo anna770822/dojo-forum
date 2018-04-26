@@ -9,4 +9,9 @@ class Post < ApplicationRecord
   has_many :category_posts
   has_many :categories, through: :category_posts
 
+  def comment_counts
+    self.comment_counts = self.comments.size
+    self.save
+  end
+
 end
