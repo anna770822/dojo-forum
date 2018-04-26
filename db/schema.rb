@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180426040156) do
+ActiveRecord::Schema.define(version: 20180426052013) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 20180426040156) do
     t.text "content"
     t.string "image"
     t.string "authority"
-    t.integer "comment_counts"
+    t.integer "comment_counts", default: 0
     t.integer "view_counts", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
