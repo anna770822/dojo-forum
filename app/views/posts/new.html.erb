@@ -1,6 +1,7 @@
 <%= form_for @post do |f| %>
   <%= f.text_field :title %>
   <%= f.text_area :content%>
+  <%= f.collection_check_boxes :category_ids, Category.all, :id, :name%>
   <%= f.label :image, "Photo" %>
   <%= image_tag @post.image, width: '300px' if @post.image? %>
   <%= f.file_field :image %>
