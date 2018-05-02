@@ -3,6 +3,8 @@ class CategoriesController < ApplicationController
   def show
     @category = Category.find(params[:id])
     @categories = Category.all
-    @categoryposts = CategoryPost.where(category_id: @category.id)
+
+    @q = @category.posts.ransack(params[:q])
+    @posts = @q.result(distinct: true).page(params[:page]).per(20)
   end
 end
