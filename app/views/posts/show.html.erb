@@ -1,7 +1,7 @@
 <%= link_to "rooot", root_path %>
 <div>
 <%= image_tag @post.user.check_avatar(@post.user)%>
-<%= @post.user.name%>
+<%= link_to @post.user.name, user_path(@post.user.id)%>
 <%= @post.content%>
 <%= image_tag @post.image, width: '300px' %>
   <% if current_user == @post.user || current_user.role == "Admin" %>
@@ -10,7 +10,7 @@
 <br/>
 <% @comments.each do |comment| %>
   <%= image_tag comment.user.check_avatar(comment.user)%>
-  <%= comment.user.name%>
+  <%= link_to comment.user.name, user_path(comment.user.id)%>
   <%= comment.content%>
   <%= image_tag comment.image, width: '300px' %>
   <% if current_user == comment.user || current_user.role == "Admin" %>

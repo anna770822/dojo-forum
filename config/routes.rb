@@ -11,6 +11,12 @@ Rails.application.routes.draw do
   root "posts#index"
   
   resources :categories, only: [:show]
+
+  resources :users, only: [:show] do
+    member do 
+      get :comments
+    end
+  end
   
   namespace :admin do 
     resources :users, only: [:index, :update]

@@ -1,0 +1,6 @@
+<% @comments.each do |comment|%>
+
+<%= link_to comment.post.title, post_path(comment.post_id)%>
+<%= comment.content%>
+<%= comment.created_at%>
+<%end%>
