@@ -16,8 +16,8 @@ class PostsController < ApplicationController
     if @post.save
       redirect_to root_path
     else
-      flash[:alert]= @post.errors.full_messages.to_sentence
       redirect_to root_path
+      flash[:alert]= @post.errors.full_messages.to_sentence
     end
   end
 

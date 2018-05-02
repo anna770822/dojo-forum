@@ -1,6 +1,9 @@
 class Post < ApplicationRecord
   is_impressionable :counter_cache => true, :column_name => :view_counts
   mount_uploader :image, PostUploader
+  
+  validates :category_ids, presence: true
+
   has_many :comments, dependent: :destroy
   has_many :commented_users, through: :comments , source: :user
   
