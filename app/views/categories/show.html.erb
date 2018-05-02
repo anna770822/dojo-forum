@@ -1,0 +1,9 @@
+<%= link_to "New Post" , new_post_path %>
+<% @categories.each do |category| %>
+  <%= link_to category.name, category_path(category)%>
+<%end%>
+<% @categoryposts.each do |categorypost|%>
+
+<%= categorypost.post.title%>
+<%= categorypost.post.content%>
+<%end%>
