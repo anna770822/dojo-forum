@@ -17,6 +17,8 @@ Rails.application.routes.draw do
       get :comments
     end
   end
+
+  resources :feeds, only: [:index]
   
   namespace :admin do 
     resources :users, only: [:index, :update]

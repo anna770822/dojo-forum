@@ -1,0 +1,9 @@
+<%= @users.count%>
+<%= @posts.count%>
+<%= @comments.count%>
+
+<% @popularposts.each do |popularpost|%>
+
+  <%= popularpost.title %>
+  <%= popularpost.updated_at%>
+<%end%>
