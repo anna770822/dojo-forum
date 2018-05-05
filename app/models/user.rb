@@ -20,4 +20,9 @@ class User < ApplicationRecord
       user.avatar
     end
   end
+
+  def comment_counts
+    self.comment_counts = self.comments.size
+    self.save
+  end
 end

@@ -1,9 +1,15 @@
-<%= @users.count%>
-<%= @posts.count%>
-<%= @comments.count%>
+<%= @user_count%>
+<%= @post_count%>
+<%= @comment_count%>
 
 <% @popularposts.each do |popularpost|%>
 
   <%= popularpost.title %>
   <%= popularpost.updated_at%>
+<%end%>
+
+<% @activeusers.each do |activeuser|%>
+
+  <%= activeuser.name%>
+  <%= activeuser.comment_counts%>
 <%end%>
