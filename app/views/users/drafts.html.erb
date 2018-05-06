@@ -1,0 +1,7 @@
+<% @drafts.each do |draft|%>
+<%= draft.title%>
+Draft
+<%= draft.updated_at%>
+
+<%= link_to "delete", post_path(draft), method: :delete%>
+<%end%>
