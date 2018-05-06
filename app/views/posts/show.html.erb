@@ -2,9 +2,11 @@
 <div>
 <%= image_tag @post.user.check_avatar(@post.user)%>
 <%= link_to @post.user.name, user_path(@post.user.id)%>
+<%= @post.title%>
 <%= @post.content%>
 <%= image_tag @post.image, width: '300px' %>
   <% if current_user == @post.user || current_user.role == "Admin" %>
+    <%= link_to "Edit", edit_post_path(@post) %>
     <%= link_to "Delete", post_path(@post), method: :delete%>
   <%end%>
 <br/>

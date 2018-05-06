@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   skip_before_action :authenticate_user!, only: :index
   impressionist actions: [:show]
+  before_action :set_post, only: [:show, :destroy, :edit, :update]
   def index
     @q = Post.where(public: true).ransack(params[:q])
     @posts = @q.result(distinct: true).page(params[:page]).per(20)
@@ -33,13 +34,13 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.find(params[:id])
+
     @comment = Comment.new
     @comments = Comment.where(post_id: @post.id).page(params[:page]).per(20)
   end
 
   def destroy
-    @post = Post.find(params[:id])
+ 
     if @post.public
       @post.destroy
       redirect_to root_path
@@ -49,14 +50,23 @@ class PostsController < ApplicationController
     end
   end
 
-  def edit
+  def update
 
+    if @post.update_attributes(post_params)
+      redirect_to post_path(@post)
+    else
+      render :edit
+    end
   end
 
   private
 
   def post_params
     params.require(:post).permit(:title, :content, :image, :public, :category_ids => [])
+  end
+
+  def set_post
+    @post = Post.find(params[:id])
   end
 
 end
