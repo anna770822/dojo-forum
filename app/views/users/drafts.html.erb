@@ -2,6 +2,6 @@
 <%= draft.title%>
 Draft
 <%= draft.updated_at%>
-
+<%= link_to "Edit", edit_post_path(draft)%>
 <%= link_to "delete", post_path(draft), method: :delete%>
 <%end%>

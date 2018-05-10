@@ -50,12 +50,24 @@ class PostsController < ApplicationController
     end
   end
 
-  def update
 
-    if @post.update_attributes(post_params)
-      redirect_to post_path(@post)
+  def update
+    if params[:commit] == "Publish"
+      @post.public = true
+      if @post.update_attributes(post_params)
+        redirect_to root_path
+      else
+        render :edit
+        flash[:alert]= @post.errors.full_messages.to_sentence
+      end
     else
-      render :edit
+      @post.public = false
+      if @post.update_attributes(post_params)
+        redirect_to root_path
+      else
+        render :edit
+        flash[:alert]= @post.errors.full_messages.to_sentence
+      end
     end
   end
 
