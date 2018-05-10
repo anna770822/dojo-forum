@@ -16,6 +16,7 @@
   <%= comment.content%>
   <%= image_tag comment.image, width: '300px' %>
   <% if current_user == comment.user || current_user.role == "Admin" %>
+    <%= link_to "Edit", edit_post_comment_path(post_id: @post.id, comment_id: comment.id)%>
     <%= link_to "Delete", post_comment_path(post_id: @post.id, comment_id: comment.id), method: :delete%>
   <%end%>
 <%end%>

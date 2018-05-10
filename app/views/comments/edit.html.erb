@@ -1,0 +1,7 @@
+<%= form_for [@post, @comment] do |f|%>
+  <%= f.text_area :content%>
+  <%= f.label :image, "Photo" %>
+  <%= image_tag @comment.image, width: '300px' if @comment.image? %>
+  <%= f.file_field :image %>
+  <%= f.submit%>
+<%end%>

@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   skip_before_action :authenticate_user!, only: :index
   impressionist actions: [:show]
-  before_action :set_post, only: [:show, :destroy, :edit, :update]
+  before_action :set_post, only: [:show, :destroy, :edit, :update, :edit_comments]
   def index
     @q = Post.where(public: true).ransack(params[:q])
     @posts = @q.result(distinct: true).page(params[:page]).per(20)
