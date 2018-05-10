@@ -12,7 +12,7 @@ class User < ApplicationRecord
   has_many :friendships, -> {where status: true}, dependent: :destroy
   has_many :friends, through: :friendships
 
-  has_many :inverse_friendships, -> {where status: true}, class_name: "Friendships", foreign_key: "friend_id"
+  has_many :inverse_friendships, -> {where status: true}, class_name: "Friendship", foreign_key: "friend_id"
   has_many :inverse_friends, through: :inverse_friendships, source: :user
 
   has_many :not_yet_accepted_friendships, -> {where status: false}, class_name: "Friendship", dependent: :destroy
@@ -39,8 +39,14 @@ class User < ApplicationRecord
     self.save
   end
 
-  def not_yet_accepted_friendships?(user)
-    self.not_yet_accepted_friendships.include?(user)
+  def friend?(user)
+    self.friends.include?(user) || self.inverse_friends.include?(user)
   end
+
+  def not_yet_accepted_friends?(user)
+    self.not_yet_accepted_friends.include?(user)
+  end
+
+  
 
 end

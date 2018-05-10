@@ -15,13 +15,14 @@ Rails.application.routes.draw do
     member do 
       get :comments
       get :drafts
+      get :friends
     end
   end
 
   resources :friendships, only: :create do
     member do 
       post :accept
-      delete :ignore
+      post :ignore
     end
   end
 

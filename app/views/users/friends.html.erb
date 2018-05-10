@@ -1,0 +1,19 @@
+<h3>Waiting For Response</h3>
+<% @not_yet_accepted_friendships.each do |friendship|%>
+  <%= image_tag friendship.friend.check_avatar(friendship.friend)%>
+  <%= friendship.friend.name%>
+  <%= friendship.friend.id%>
+<%end%>
+
+<h3>Request</h3>
+<% @not_yet_responded_friendships.each do |friendship|%>
+  <%= image_tag friendship.friend.check_avatar(friendship.friend)%>
+  <%= friendship.friend.name%>
+  <%= friendship.friend.id%>
+  <%= link_to "Accept", accept_friendship_path(friendship), method: :post%>
+  <%= link_to "Ignore", ignore_friendship_path(friendship), method: :post%>
+<%end%>
+
+<h3>Friends</h3>
+
+

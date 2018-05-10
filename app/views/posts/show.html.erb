@@ -3,7 +3,13 @@
 <%= image_tag @post.user.check_avatar(@post.user)%>
 <%= link_to @post.user.name, user_path(@post.user.id)%>
 <% if @post.user != current_user%>
-    <%= link_to "Add Friend", friendships_path(friend_id: @post.user_id), method: :post%>
+  <% unless current_user.friend?(@post.user)%>
+    <% if current_user.not_yet_accepted_friends?(@post.user)%>
+      <%= %>
+    <% else%>
+      <%= link_to "Add Friend", friendships_path(friend_id: @post.user_id), method: :post%>
+    <% end%>
+  <%end%>
 <%end%>
 <%= @post.title%>
 <%= @post.content%>
@@ -17,7 +23,13 @@
   <%= image_tag comment.user.check_avatar(comment.user)%>
   <%= link_to comment.user.name, user_path(comment.user.id)%>
   <% if comment.user != current_user%>
-    <%= link_to "Add Friend", friendships_path(friend_id: comment.user_id), method: :post%>
+    <% unless current_user.friend?(@post.user)%>
+      <% if current_user.not_yet_accepted_friends?(@post.user)%>
+        <%= %>
+      <% else%>
+        <%= link_to "Add Friend", friendships_path(friend_id: comment.user_id), method: :post%>
+      <%end%>
+    <%end%>
   <%end%>
   <%= comment.content%>
   <%= image_tag comment.image, width: '300px' %>
