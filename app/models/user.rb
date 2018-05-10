@@ -38,4 +38,9 @@ class User < ApplicationRecord
     self.comment_counts = self.comments.size
     self.save
   end
+
+  def not_yet_accepted_friendships?(user)
+    self.not_yet_accepted_friendships.include?(user)
+  end
+
 end

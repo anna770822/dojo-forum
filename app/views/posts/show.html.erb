@@ -2,17 +2,23 @@
 <div>
 <%= image_tag @post.user.check_avatar(@post.user)%>
 <%= link_to @post.user.name, user_path(@post.user.id)%>
+<% if @post.user != current_user%>
+    <%= link_to "Add Friend", friendships_path(friend_id: @post.user_id), method: :post%>
+<%end%>
 <%= @post.title%>
 <%= @post.content%>
 <%= image_tag @post.image, width: '300px' %>
   <% if current_user == @post.user || current_user.role == "Admin" %>
-    <%= link_to "Edit", edit_post_path(@post) %>
+    <%= link_to "Edit", edit_post_path(@post)%>
     <%= link_to "Delete", post_path(@post), method: :delete%>
   <%end%>
 <br/>
 <% @comments.each do |comment| %>
   <%= image_tag comment.user.check_avatar(comment.user)%>
   <%= link_to comment.user.name, user_path(comment.user.id)%>
+  <% if comment.user != current_user%>
+    <%= link_to "Add Friend", friendships_path(friend_id: comment.user_id), method: :post%>
+  <%end%>
   <%= comment.content%>
   <%= image_tag comment.image, width: '300px' %>
   <% if current_user == comment.user || current_user.role == "Admin" %>
