@@ -4,7 +4,7 @@
 <%= link_to @post.user.name, user_path(@post.user.id)%>
 <% if @post.user != current_user%>
   <% unless current_user.friend?(@post.user)%>
-    <% if current_user.not_yet_accepted_friends?(@post.user)%>
+    <% if current_user.not_yet_accepted_friends?(@post.user)|| current_user.friendships.where(friend_id: @post.user, status: nil)%>
       <%= %>
     <% else%>
       <%= link_to "Add Friend", friendships_path(friend_id: @post.user_id), method: :post%>
@@ -24,7 +24,7 @@
   <%= link_to comment.user.name, user_path(comment.user.id)%>
   <% if comment.user != current_user%>
     <% unless current_user.friend?(@post.user)%>
-      <% if current_user.not_yet_accepted_friends?(@post.user)%>
+      <% if current_user.not_yet_accepted_friends?(@post.user)|| current_user.friendships.where(friend_id: @post.user, status: nil)%>
         <%= %>
       <% else%>
         <%= link_to "Add Friend", friendships_path(friend_id: comment.user_id), method: :post%>
