@@ -1,17 +1,17 @@
 class UsersController < ApplicationController
-
+  before_action :set_user
   def show
-    @user = User.find(params[:id])
+   
     @posts = Post.where(user_id: @user.id)
   end
 
   def comments
-    @user = User.find(params[:id])
+ 
     @comments = Comment.where(user_id: @user.id)
   end
 
   def drafts
-    @user = User.find(params[:id])
+   
     @drafts = Post.where(public: false)
 
   end
@@ -19,12 +19,18 @@ class UsersController < ApplicationController
   def friends
     @not_yet_accepted_friendships = Friendship.where(user_id: current_user.id, status: false)
     @not_yet_responded_friendships = Friendship.where(friend_id: current_user.id, status: false)
-    @user = User.find(params[:id])
+
     @friends = @user.all_friends
   end
 
   def collects
-    @user = User.find(params[:id])
+   
     @collections = @user.collections
+  end
+
+  private
+
+  def set_user
+    @user = User.find(params[:id])
   end
 end
