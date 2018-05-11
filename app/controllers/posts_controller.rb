@@ -3,8 +3,13 @@ class PostsController < ApplicationController
   impressionist actions: [:show]
   before_action :set_post, only: [:show, :destroy, :edit, :update, :edit_comments]
   def index
-    @q = Post.where(public: true).ransack(params[:q])
-    @posts = @q.result(distinct: true).page(params[:page]).per(20)
+    if current_user
+      @q = Post.where(public: true).authorized_posts(current_user).ransack(params[:q])
+      @posts = @q.result(distinct: true).page(params[:page]).per(20)
+    else
+       @q = Post.where(public: true).where(authority: "All").ransack(params[:q])
+       @posts = @q.result(distinct: true).page(params[:page]).per(20)
+    end
     @categories = Category.all
   end
 
