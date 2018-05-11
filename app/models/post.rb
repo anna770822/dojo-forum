@@ -4,6 +4,8 @@ class Post < ApplicationRecord
   
   validates :category_ids, presence: true
 
+  validates_presence_of :title, :content, :authority
+
   has_many :comments, dependent: :destroy
   has_many :commented_users, through: :comments , source: :user
   
