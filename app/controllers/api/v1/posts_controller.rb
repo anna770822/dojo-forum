@@ -52,6 +52,27 @@ class Api::V1::PostsController < ApiController
     end
   end
 
+  def update
+    if @post.update(post_params)
+      render json: {
+        message: "Post Updated!",
+        result: @post
+      }
+    else
+      render json: {
+        errors: @post.errors
+      }
+    end
+  end
+
+  def destroy
+    @post.destroy
+    render json: {
+      message: "Post Deleted!"
+    }
+
+  end
+
 
   private 
 
