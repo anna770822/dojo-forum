@@ -22,4 +22,9 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @friends = @user.all_friends
   end
+
+  def collects
+    @user = User.find(params[:id])
+    @collections = @user.collections
+  end
 end
