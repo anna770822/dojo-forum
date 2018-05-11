@@ -9,8 +9,11 @@ class Post < ApplicationRecord
   
   belongs_to :user
 
-  has_many :category_posts
+  has_many :category_posts, dependent: :destroy
   has_many :categories, through: :category_posts
+
+  has_many :collections, dependent: :destroy
+  has_many :users, through: :collections
 
   def comment_counts
     self.comment_counts = self.comments.size

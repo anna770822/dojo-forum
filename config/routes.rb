@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   resources :posts do
     resources :comments
+    post :collet
+    post :uncollect
   end
 
   root "posts#index"
@@ -14,6 +16,7 @@ Rails.application.routes.draw do
   resources :users, only: [:show] do
     member do 
       get :comments
+      get :collects
       get :drafts
       get :friends
     end

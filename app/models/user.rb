@@ -20,7 +20,9 @@ class User < ApplicationRecord
 
   has_many :not_yet_responded_friendships, -> {where status: false}, class_name: "Friendship", foreign_key: "friend_id", dependent: :destroy
   has_many :not_yet_responded_friends, through: :not_yet_responded_friendships, source: :user
-
+  
+  has_many :collections, dependent: :destroy
+  has_many :posts, through: :collections
 
   def admin?
     self.role == "Admin"
