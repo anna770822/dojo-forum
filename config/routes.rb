@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   resources :friendships, only: :create do
     member do 
       post :accept
-      post :ignore
+      delete :ignore
     end
   end
 

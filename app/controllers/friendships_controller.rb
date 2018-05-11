@@ -6,14 +6,14 @@ class FriendshipsController < ApplicationController
   end
 
   def accept
-    @friendship = Friendship.find(params[:id])
+    @friendship = Friendship.where(user_id: params[:user_id],friend_id:current_user.id)
     @friendship.update(status: true)
     redirect_to friends_user_path(current_user)
   end
 
   def ignore
-    @friendship = Friendship.find(params[:id])
-    @friendship.update(status: nil)
+    @friendship = Friendship.where(user_id: params[:user_id],friend_id:current_user.id)
+    @friendship.destroy_all
     redirect_to friends_user_path(current_user)
   end
 end

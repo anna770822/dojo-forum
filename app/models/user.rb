@@ -19,7 +19,7 @@ class User < ApplicationRecord
   has_many :not_yet_accepted_friends, through: :not_yet_accepted_friendships, source: :friend
 
   has_many :not_yet_responded_friendships, -> {where status: false}, class_name: "Friendship", foreign_key: "friend_id", dependent: :destroy
-  has_many :not_yet_responded_friends, through: :not_yet_responded_to_friendships, source: :user
+  has_many :not_yet_responded_friends, through: :not_yet_responded_friendships, source: :user
 
 
   def admin?
@@ -47,6 +47,12 @@ class User < ApplicationRecord
     self.not_yet_accepted_friends.include?(user)
   end
 
+  def not_yet_responded_friends?(user)
+    self.not_yet_responded_friends.include?(user)
+  end
   
-
+  def all_friends
+    friends = self.friends + self.inverse_friends
+    return friends.uniq
+  end
 end

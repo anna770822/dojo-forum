@@ -7,13 +7,17 @@
 
 <h3>Request</h3>
 <% @not_yet_responded_friendships.each do |friendship|%>
-  <%= image_tag friendship.friend.check_avatar(friendship.friend)%>
-  <%= friendship.friend.name%>
-  <%= friendship.friend.id%>
-  <%= link_to "Accept", accept_friendship_path(friendship), method: :post%>
-  <%= link_to "Ignore", ignore_friendship_path(friendship), method: :post%>
+  <%= image_tag friendship.user.check_avatar(friendship.user)%>
+  <%= friendship.user.name%>
+  <%= friendship.user.id%>
+  <%= link_to "Accept", accept_friendship_path(user_id: friendship.user.id, friend_id: current_user.id), method: :post%>
+  <%= link_to "Ignore", ignore_friendship_path(user_id: friendship.user.id, friend_id: current_user.id), method: :delete%>
 <%end%>
 
 <h3>Friends</h3>
 
-
+<% @friends.each do |friend|%>
+  <%= image_tag friend.check_avatar(friend)%>
+  <%= friend.name%>
+  <%= friend.id%>
+<%end%>

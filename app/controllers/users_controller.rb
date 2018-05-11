@@ -19,6 +19,7 @@ class UsersController < ApplicationController
   def friends
     @not_yet_accepted_friendships = Friendship.where(user_id: current_user.id, status: false)
     @not_yet_responded_friendships = Friendship.where(friend_id: current_user.id, status: false)
-    @friends = 
+    @user = User.find(params[:id])
+    @friends = @user.all_friends
   end
 end

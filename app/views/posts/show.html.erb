@@ -3,12 +3,15 @@
 <%= image_tag @post.user.check_avatar(@post.user)%>
 <%= link_to @post.user.name, user_path(@post.user.id)%>
 <% if @post.user != current_user%>
-  <% unless current_user.friend?(@post.user)%>
-    <% if current_user.not_yet_accepted_friends?(@post.user)|| current_user.friendships.where(friend_id: @post.user, status: nil)%>
-      <%= %>
-    <% else%>
-      <%= link_to "Add Friend", friendships_path(friend_id: @post.user_id), method: :post%>
-    <% end%>
+  <% if current_user.friend?(@post.user)%>
+
+  <% elsif current_user.not_yet_accepted_friends?(@post.user)%>
+
+  <% elsif current_user.not_yet_responded_friends?(@post.user)%>
+    <%= link_to "Accept", accept_friendship_path(user_id: @post.user.id, friend_id: current_user.id), method: :post%>
+    <%= link_to "Ignore", ignore_friendship_path(user_id: @post.user.id, friend_id: current_user.id), method: :delete%>
+  <%else%>
+    <%= link_to "Add Friend", friendships_path(friend_id: @post.user_id), method: :post%>
   <%end%>
 <%end%>
 <%= @post.title%>
@@ -23,12 +26,15 @@
   <%= image_tag comment.user.check_avatar(comment.user)%>
   <%= link_to comment.user.name, user_path(comment.user.id)%>
   <% if comment.user != current_user%>
-    <% unless current_user.friend?(@post.user)%>
-      <% if current_user.not_yet_accepted_friends?(@post.user)|| current_user.friendships.where(friend_id: @post.user, status: nil)%>
-        <%= %>
-      <% else%>
-        <%= link_to "Add Friend", friendships_path(friend_id: comment.user_id), method: :post%>
-      <%end%>
+    <% if current_user.friend?(comment.user)%>
+
+    <% elsif current_user.not_yet_accepted_friends?(comment.user)%>
+  
+    <% elsif current_user.not_yet_responded_friends?(comment.user)%>
+      <%= link_to "Accept", accept_friendship_path(user_id: comment.user.id, friend_id: current_user.id), method: :post%>
+      <%= link_to "Ignore", ignore_friendship_path(user_id: comment.user.id, friend_id: current_user.id), method: :delete%>
+    <%else%>
+      <%= link_to "Add Friend", friendships_path(friend_id: comment.user_id), method: :post%>
     <%end%>
   <%end%>
   <%= comment.content%>
