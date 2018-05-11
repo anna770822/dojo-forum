@@ -70,6 +70,20 @@ class PostsController < ApplicationController
     end
   end
 
+  def collect
+    @post = Post.find(params[:post_id])
+    @collect = current_user.collections.build(post_id: @post.id)
+    @collect.save
+    redirect_to post_path(@post)
+  end
+
+  def uncollect
+    @post = Post.find(params[:post_id])
+    @collect = current_user.collections.where(post_id: @post.id)
+    @collect.destroy_all
+    redirect_to post_path(@post)
+  end
+
   private
 
   def post_params

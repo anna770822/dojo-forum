@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   resources :posts do
     resources :comments
-    post :collet
+    post :collect
     post :uncollect
   end
 

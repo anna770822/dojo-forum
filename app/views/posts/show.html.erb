@@ -1,4 +1,6 @@
-<%= link_to "rooot", root_path %>
+<%= link_to "Root", root_path %>
+<%= link_to "Collect", post_collect_path(@post.id), method: :post%>
+<%= link_to "Uncollect", post_uncollect_path(@post.id), method: :post%>
 <div>
 <%= image_tag @post.user.check_avatar(@post.user)%>
 <%= link_to @post.user.name, user_path(@post.user.id)%>
