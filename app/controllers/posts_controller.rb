@@ -13,7 +13,8 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = current_user.posts.build(post_params)
+    @post = Post.new(post_params)
+    @post.user = current_user
     if params[:commit] == "Publish"
       @post.public = true
       if @post.save
@@ -87,7 +88,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :content, :image, :public, :category_ids => [])
+    params.require(:post).permit(:title, :content, :image, :public, :authority, :category_ids => [])
   end
 
   def set_post
