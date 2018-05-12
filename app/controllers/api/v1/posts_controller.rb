@@ -1,7 +1,8 @@
 class Api::V1::PostsController < ApiController
   before_action :authenticate_user!, except: :index
   before_action :set_category, only: [:index]
-  before_action :set_post, only: [:show, :destroy, :update]
+  before_action :set_post, only: [:show, :destroy, :update, :check_user]
+  before_action :check_user, only: [:update, :destroy]
   def index
     if current_user
       @q = Post.where(public: true).authorized_posts(current_user).ransack(params[:q])
@@ -27,14 +28,14 @@ class Api::V1::PostsController < ApiController
   end
 
   def show
-    @comments = Comment.where(post_id: @post.id).page(params[:page]).per(20)
-    respond_to do |format|
-      format.json{
-            render json: {:post => @post, 
+        @comments = Comment.where(post_id: @post.id).page(params[:page]).per(20)
+        respond_to do |format|
+        format.json{
+          render json: {:post => @post, 
                           :comments => @comments
-            }
-      }
-    end
+          }
+        }
+        end
   end
   
   def create
@@ -81,10 +82,18 @@ class Api::V1::PostsController < ApiController
   end
 
   def set_post
-    @post = Post.find(params[:id])
+    @post = Post.find_by(id: params[:id])
   end
 
   def post_params
     params.permit(:title, :content, :image, :public, :authority, category_ids: [])
+  end
+
+  def check_user
+    unless @post.user == current_user || current_user.admin?
+      render json: {
+        errors: "You have no right to this post!"
+      }
+    end
   end
 end
