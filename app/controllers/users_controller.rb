@@ -1,19 +1,17 @@
 class UsersController < ApplicationController
   before_action :set_user
   def show
-   
-    @posts = Post.where(user_id: @user.id)
+    @posts = Post.where(user_id: @user.id).order(updated_at: :desc)
   end
 
   def comments
  
-    @comments = Comment.where(user_id: @user.id)
+    @comments = Comment.where(user_id: @user.id).order(updated_at: :desc)
   end
 
   def drafts
    
-    @drafts = Post.where(public: false)
-
+    @drafts = Post.where(public: false).order(updated_at: :desc)
   end
 
   def friends
@@ -25,7 +23,7 @@ class UsersController < ApplicationController
 
   def collects
    
-    @collections = @user.collections
+    @collections = @user.collections.order(updated_at: :desc)
   end
 
   private
