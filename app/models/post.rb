@@ -27,5 +27,9 @@ class Post < ApplicationRecord
   def self.authorized_posts(user)
     Post.where(authority: "All").or(where(authority: "Friend", user: user.all_friends)).or(where(authority: "Myself", user: user))
   end
-
+  
+  def count_comment
+    self.comment_counts = self.comments.size
+    self.save
+  end
 end

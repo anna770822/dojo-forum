@@ -1,15 +1,13 @@
 <%= @user_count%>
 <%= @post_count%>
 <%= @comment_count%>
-
+<br/>
 <% @popularposts.each do |popularpost|%>
-
   <%= popularpost.title %>
-  <%= popularpost.updated_at%>
+  <%= popularpost.updated_at%><br/>
 <%end%>
-
+<br/>
 <% @activeusers.each do |activeuser|%>
-
-  <%= activeuser.name%>
-  <%= activeuser.comment_counts%>
+  <%= activeuser.id%>
+  <%= activeuser.comment_counts%><br/>
 <%end%>

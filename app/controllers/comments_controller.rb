@@ -5,8 +5,13 @@ class CommentsController < ApplicationController
   
     @comment = @post.comments.new(comment_params)
     @comment.user = current_user
-    @post.comment_counts
-    current_user.comment_counts
+
+    @post.count_comment
+    @post.save
+
+    current_user.count_comment
+    current_user.save
+
     @comment.save
     redirect_to post_path(@post)
   end

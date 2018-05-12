@@ -38,7 +38,7 @@ class User < ApplicationRecord
     end
   end
 
-  def comment_counts
+  def count_comment
     self.comment_counts = self.comments.size
     self.save
   end
