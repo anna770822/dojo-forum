@@ -29,11 +29,13 @@ class Api::V1::PostsController < ApiController
 
   def show
     if Post.authorized_posts(current_user).post_public.include?(@post)
+      @post.view_counts += 1
+      @post.save!
       @comments = Comment.where(post_id: @post.id).page(params[:page]).per(20)
       respond_to do |format|
         format.json{
           render json: {:post => @post, 
-                            :comments => @comments
+                        :comments => @comments
           }
         }
       end
