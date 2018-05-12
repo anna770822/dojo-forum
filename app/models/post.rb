@@ -17,6 +17,8 @@ class Post < ApplicationRecord
   has_many :collections, dependent: :destroy
   has_many :users, through: :collections
 
+  scope :post_public, -> { where(public: true)}
+
   def comment_counts
     self.comment_counts = self.comments.size
     self.save
@@ -25,4 +27,5 @@ class Post < ApplicationRecord
   def self.authorized_posts(user)
     Post.where(authority: "All").or(where(authority: "Friend", user: user.all_friends)).or(where(authority: "Myself", user: user))
   end
+
 end
