@@ -1,0 +1,8 @@
+<ul class="nav nav-pills">
+  <li><%= link_to "All", root_path, class: "nav-link btn-light margin-10" %></li>
+  <% @categories.each do |category| %>
+    <li class="nav-item">
+      <%= link_to category.name, category_path(category), class: "nav-link btn-light margin-10"%>
+    </li>
+  <%end%>
+</ul>

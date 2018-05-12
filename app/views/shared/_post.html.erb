@@ -1,0 +1,29 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th class="text-center"><%= sort_link @q, :comment_counts%></th>
+      <th class="text-center"><%= sort_link @q, :title %></th>
+      <th class="text-center"><%= sort_link @q, :updated_at %></th>
+      <th class="text-center"><%= sort_link @q, :view_counts %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @posts.each do |post| %>
+      <tr>
+        <td class="text-center"><div class="button-counts"><%= post.comments.count%></div></td>
+        <td class="text-center"><%= link_to "#{post.title}", post_path(post) %></td>
+        <td class="text-center">
+          <% if post.comments.count == 0 %>
+            <%= post.updated_at.strftime("%F") %>
+          <%else%>
+            <%= post.comments.last.updated_at.strftime("%F")%>
+          <%end%>
+        </td>
+        <td class="text-center">
+          <i class="far fa-eye"></i>
+          <%= post.view_counts %>
+        </td>
+      </tr>
+    <%end%>
+  </tbody>
+</table>

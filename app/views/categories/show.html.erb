@@ -1,30 +1,4 @@
-<%= link_to "New Post" , new_post_path %>
-<% @categories.each do |category| %>
-  <%= link_to category.name, category_path(category)%>
-<%end%>
-<table class="table">
-  <thead>
-    <tr>
-      <th><%= sort_link @q, :comment_counts%></th>
-      <th><%= sort_link @q, :title %></th>
-      <th><%= sort_link @q, :updated_at %></th>
-      <th><%= sort_link @q, :view_counts %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @posts.each do |post| %>
-      <tr>
-        <td><%= post.comments.count%></td>
-        <td><%= link_to "#{post.title}", post_path(post) %></td>
-        <td><% if post.comments.count == 0 %>
-            <%= post.updated_at %>
-          <%else%>
-            <%= post.comments.last.updated_at%>
-          <%end%>
-        </td>
-        <td><%= post.view_counts %></td>
-      </tr>
-    <%end%>
-  </tbody>
-</table>
+<%= render partial: "shared/jumbotron" %>
+<%= render partial: "shared/category" %>
+<%= render partial: "shared/post"%>
 <%= paginate @posts %>
