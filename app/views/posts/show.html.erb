@@ -1,64 +1,98 @@
-<div>
-  <p class="bold"><%=@post.title%></p>
-  <% if @post.is_collected?(current_user)%>
-    <%= link_to "Uncollect", post_uncollect_path(@post.id), class: "btn btn-outline-secondary", method: :post%>
-  <%else%>
-    <%= link_to "Collect", post_collect_path(@post.id), class: "btn btn-outline-secondary", method: :post%>
-  <%end%>
-<div>
-<%= image_tag @post.user.check_avatar(@post.user)%>
-<%= link_to @post.user.name, user_path(@post.user.id)%>
-<% if @post.user != current_user%>
-  <% if current_user.friend?(@post.user)%>
-
-  <% elsif current_user.not_yet_accepted_friends?(@post.user)%>
-
-  <% elsif current_user.not_yet_responded_friends?(@post.user)%>
-    <%= link_to "Accept", accept_friendship_path(user_id: @post.user.id, friend_id: current_user.id), method: :post%>
-    <%= link_to "Ignore", ignore_friendship_path(user_id: @post.user.id, friend_id: current_user.id), method: :delete%>
-  <%else%>
-    <%= link_to "Add Friend", friendships_path(friend_id: @post.user_id), method: :post%>
-  <%end%>
-<%end%>
-<%= @post.title%>
-<%= @post.content%>
-<%= image_tag @post.image, width: '300px' %>
-  <% if current_user == @post.user || current_user.role == "Admin" %>
-    <%= link_to "Edit", edit_post_path(@post)%>
-    <%= link_to "Delete", post_path(@post), method: :delete%>
-  <%end%>
-<br/>
-<% @comments.each do |comment| %>
-  <%= image_tag comment.user.check_avatar(comment.user)%>
-  <%= link_to comment.user.name, user_path(comment.user.id)%>
-  <% if comment.user != current_user%>
-    <% if current_user.friend?(comment.user)%>
-
-    <% elsif current_user.not_yet_accepted_friends?(comment.user)%>
-  
-    <% elsif current_user.not_yet_responded_friends?(comment.user)%>
-      <%= link_to "Accept", accept_friendship_path(user_id: comment.user.id, friend_id: current_user.id), method: :post%>
-      <%= link_to "Ignore", ignore_friendship_path(user_id: comment.user.id, friend_id: current_user.id), method: :delete%>
+<div class="clearfix margin-top-20 ">
+  <div class="margin-top-20">
+    <button class="btn btn-outline-secondary margin-10">Title: <%=@post.title %></button>
+    <button class="btn btn-outline-secondary float-right margin-10"><a href="#comment">Comment</a></button>
+    <% if @post.is_collected?(current_user)%>
+      <%= link_to "Uncollect", post_uncollect_path(@post.id), class: "btn btn-outline-secondary float-right margin-10", method: :post%>
     <%else%>
-      <%= link_to "Add Friend", friendships_path(friend_id: comment.user_id), method: :post%>
+      <%= link_to "Collect", post_collect_path(@post.id), class: "btn btn-outline-secondary float-right margin-10", method: :post%>
     <%end%>
-  <%end%>
-  <%= comment.content%>
-  <%= image_tag comment.image, width: '300px' %>
-  <% if current_user == comment.user || current_user.role == "Admin" %>
-    <%= link_to "Edit", edit_post_comment_path(post_id: @post.id, comment_id: comment.id)%>
-    <%= link_to "Delete", post_comment_path(post_id: @post.id, comment_id: comment.id), method: :delete%>
-  <%end%>
-<%end%>
+  </div>
+<div>
+<!--post-->
+<div class="col-xs-12 clearfix margin-top-20 border">
+  <div class="col-xs-12 col-sm-12 col-md-3 text-center float-left margin-top-20 ">
+    <%= image_tag @post.user.check_avatar(@post.user), class: "profile-size "%>
+    <p><%= link_to @post.user.name, user_path(@post.user.id)%></p>
+    <% if @post.user != current_user%>
+      <% if current_user.friend?(@post.user)%>
 
+      <% elsif current_user.not_yet_accepted_friends?(@post.user)%>
 
-<%= form_for [@post, @comment] do |f|%>
-  <%= f.text_area :content%>
-  <%= f.label :image, "Photo" %>
-  <%= image_tag @comment.image, width: '300px' if @comment.image? %>
-  <%= f.file_field :image %>
-  <%= f.submit%>
-<%end%>
-<%= paginate @comments %>
+      <% elsif current_user.not_yet_responded_friends?(@post.user)%>
+        <%= link_to "Accept", accept_friendship_path(user_id: @post.user.id, friend_id: current_user.id), class: "btn btn-outline-secondary", method: :post%>
+        <%= link_to "Ignore", ignore_friendship_path(user_id: @post.user.id, friend_id: current_user.id), class: "btn btn-outline-secondary", method: :delete%>
+      <%else%>
+        <%= link_to "Add Friend", friendships_path(friend_id: @post.user_id), class: "btn btn-outline-secondary", method: :post%>
+      <%end%>
+    <%end%>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-9 float-left container-table margin-top-20">
+    <div class="container-table-cell">
+      <div class="">
+        <%= image_tag @post.image, class: "upload-image" %><br/>
+        <div class="margin-top-20">
+          <%= @post.content%>
+        </div>
+        <div class="clearfix">
+          <% if current_user == @post.user || current_user.role == "Admin" %>
+            <%= link_to "Delete", post_path(@post), class: "fas fa-trash-alt btn btn-primary bold float-right margin-10", method: :delete, data: { confirm: "Are You Sure？" }%>
+            <%= link_to "Edit", edit_post_path(@post), class: "fas fa-edit btn btn-primary bold float-right margin-10"%>
+          <%end%>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--comment-->
+<div class="col-xs-12 clearfix margin-top-20 ">
+  <% @comments.each do |comment| %>
+  <div class="clearfix border bg-color">
+    <div class="col-xs-12 col-sm-12 col-md-3 text-center float-left margin-top-20">
+      <%= image_tag comment.user.check_avatar(comment.user), class: "profile-size"%>
+      <p><%= link_to comment.user.name, user_path(comment.user.id)%></p>
+      <% if comment.user != current_user%>
+        <% if current_user.friend?(comment.user)%>
+
+        <% elsif current_user.not_yet_accepted_friends?(comment.user)%>
+      
+        <% elsif current_user.not_yet_responded_friends?(comment.user)%>
+          <%= link_to "Accept", accept_friendship_path(user_id: comment.user.id, friend_id: current_user.id), class: "btn btn-outline-secondary", method: :post%>
+          <%= link_to "Ignore", ignore_friendship_path(user_id: comment.user.id, friend_id: current_user.id), class: "btn btn-outline-secondary", method: :delete%>
+        <%else%>
+          <%= link_to "Add Friend", friendships_path(friend_id: comment.user_id), class: "btn btn-outline-secondary", method: :post%>
+        <%end%>
+      <%end%>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-9 float-left margin-top-20">
+      <div class="container-table">
+        <div class="container-table-cell">
+          <%= image_tag comment.image, class: "upload-image" %><br/>
+          <div class="margin-top-20">
+            <%= comment.content%>
+          </div>
+          <div class="clearfix">
+            <% if current_user == comment.user || current_user.role == "Admin" %>
+              <%= link_to "Delete", post_comment_path(post_id: @post.id, comment_id: comment.id), class: "fas fa-trash-alt btn btn-primary bold float-right margin-10", method: :delete, data: { confirm: "Are You Sure？" }%>
+              <%= link_to "Edit", edit_post_comment_path(post_id: @post.id, comment_id: comment.id),class: "fas fa-edit btn btn-primary bold float-right margin-10"%>
+            <%end%>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%end%>
+</div>
+<div id="comment" class="col-xs-12 container border">
+  <%= form_for [@post, @comment] do |f|%>
+    <%= f.text_area :content, class: "form-control rounded margin-top-20"%>
+    <%= image_tag @comment.image, width: '300px' if @comment.image? %>
+    <%= f.file_field :image, class: "margin-top-20"%><br/>
+    <%= f.submit class: "btn-primary rounded margin-top-20"%>
+  <%end%>
+</div>
+<div class="margin-top-20">
+  <%= paginate @comments, theme: 'twitter-bootstrap-4'%>
 </div>
 

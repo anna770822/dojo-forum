@@ -41,7 +41,7 @@ class PostsController < ApplicationController
 
   def show
     @comment = Comment.new
-    @comments = Comment.where(post_id: @post.id).page(params[:page]).per(20)
+    @comments = Comment.where(post_id: @post.id).page(params[:page]).per(20).order(updated_at: :desc)
   end
 
   def destroy
