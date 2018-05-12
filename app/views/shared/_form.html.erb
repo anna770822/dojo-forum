@@ -1,18 +1,27 @@
-<%= form_for @post do |f| %>
+<div class="margin-top-20">
+  <%= form_for @post do |f| %>
+    <div class="margin-top-20">
+    <%= f.text_field :title, placeholder: "Title", class: "form-control"%><br/>
+    <%= f.text_area :content, placeholder: "Content", class: "form-control"%><br/>
+    </div>
+    <div class="margin-top-20">
+      <%= f.file_field :image %><br/>
+      <%= image_tag @post.image, class: "upload-image margin-top-20" if @post.image? %>
+    </div>
+    <div class="margin-top-20">
+      Who Can See &#160
+      <%= f.radio_button :authority, "All"%> All
+      <%= f.radio_button :authority, "Friend"%> Friend
+      <%= f.radio_button :authority, "Myself"%> Myself<br/>
+    </div>
+    <div class="margin-top-20">
+      Category &#160
+      <%= f.collection_check_boxes :category_ids, Category.all, :id, :name%><br/>
+    </div>
+    <div class="margin-top-20">
 
-  <%= f.text_field :title %>
-  <%= f.text_area :content%>
-
-  <%= f.radio_button :authority, "All"%> All <br/>
-  <%= f.radio_button :authority, "Friend"%> Friend <br/>
-  <%= f.radio_button :authority, "Myself"%> Myself <br/>
-
-  <%= f.collection_check_boxes :category_ids, Category.all, :id, :name%>
-
-  <%= f.label :image, "Photo" %>
-  <%= image_tag @post.image, width: '300px' if @post.image? %>
-  <%= f.file_field :image %>
-
-  <%= f.submit "Publish" %>
-  <%= f.submit "Save as Draft"%>
-<%end%>
+      <%= f.submit "Publish", class: "btn-primary rounded" %>
+      <%= f.submit "Save as Draft", class: "btn-primary rounded" %>
+    </div>
+  <%end%>
+</div>
