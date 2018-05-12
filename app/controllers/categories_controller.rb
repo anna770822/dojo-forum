@@ -5,6 +5,6 @@ class CategoriesController < ApplicationController
     @categories = Category.all
 
     @q = @category.posts.ransack(params[:q])
-    @posts = @q.result(distinct: true).page(params[:page]).per(20)
+    @posts = @q.result(distinct: true).page(params[:page]).per(20).order(updated_at: :desc)
   end
 end

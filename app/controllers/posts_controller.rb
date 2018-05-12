@@ -5,10 +5,10 @@ class PostsController < ApplicationController
   def index
     if current_user
       @q = Post.where(public: true).authorized_posts(current_user).ransack(params[:q])
-      @posts = @q.result(distinct: true).page(params[:page]).per(20)
+      @posts = @q.result(distinct: true).page(params[:page]).per(20).order(updated_at: :desc)
     else
        @q = Post.where(public: true).where(authority: "All").ransack(params[:q])
-       @posts = @q.result(distinct: true).page(params[:page]).per(20)
+       @posts = @q.result(distinct: true).page(params[:page]).per(20).order(updated_at: :desc)
     end
     @categories = Category.all
   end
