@@ -14,7 +14,7 @@
           <td><%= user.email %></td>
           <td>
             <%= form_for [:admin, user], url: admin_user_path(id: user.id), method: :put do |f| %>
-              <%= f.text_field :role%>
+              <%= f.select :role, ["Admin","Normal"]%>
               <%= f.submit%>
             <%end%>
           </td>
