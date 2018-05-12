@@ -25,16 +25,16 @@ class PostsController < ApplicationController
       if @post.save
         redirect_to root_path
       else
-        redirect_to root_path
-        flash[:alert]= @post.errors.full_messages.to_sentence
+        flash.now[:alert]= @post.errors.full_messages.to_sentence
+        render :edit
       end
     else
       @post.public = false
       if @post.save
-        redirect_to root_path
+        redirect_to drafts_user_path(current_user)
       else
-        redirect_to root_path
-        flash[:alert]= @post.errors.full_messages.to_sentence
+        flash.now[:alert]= @post.errors.full_messages.to_sentence
+        render :edit
       end
     end
   end
