@@ -3,29 +3,66 @@
   <head>
     <title>DojoForum</title>
     <%= csrf_meta_tags %>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   </head>
 
   <body>
-    <% if current_user %>
-      <% if current_user.role == "admin"%>
-        <%= link_to "Admin", admin_categories_path %>
-      <%end%>
-        <%= link_to('登出', destroy_user_session_path, :method => :delete) %> |
-        <%= link_to('修改密碼', edit_registration_path(:user)) %>
-    <% else %>
-      <%= link_to('註冊', new_registration_path(:user)) %> |
-      <%= link_to('登入', new_session_path(:user)) %>
-    <% end %>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <% if current_user %>
-      <p class="pull-right">你的 API Token：<code><%= current_user.authentication_token  %></code></p>
-    <% end %>
-    <%= yield %>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <%= link_to "Dojo", root_path, class: "navbar-brand" %>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="navbar-nav">
+            <%= link_to "Feeds", feeds_path, class: "nav-link" %>
+          </li>
+          <li class="navbar-nav">
+            <%= link_to "All Post", root_path, class: "nav-link" %>
+          </li>
+          <li class="navbar-nav">
+            <%= link_to "New Post", new_post_path, class: "nav-link" %>
+          </li>
+          <% if current_user %>
+            <% if current_user.role == "Admin"%>
+              <%= link_to "Admin", admin_categories_path, class: "nav-link" %>
+            <%end%>
+              <%= link_to('登出', destroy_user_session_path, :method => :delete, class: "nav-link" )  %> 
+              <%= link_to('修改密碼', edit_registration_path(:user), class: "nav-link" )  %>
+          <% else %>
+              <%= link_to('註冊', new_registration_path(:user), class: "nav-link" ) %> 
+              <%= link_to('登入', new_session_path(:user), class: "nav-link" ) %>
+          <% end %>
+        </ul>
+      </div>
+    </nav>
     
+    <% if flash[:alert] %>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong><%= alert %></strong> 
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <%end%>
+    <% if flash[:notice] %>
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong><%= notice %></strong> 
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <%end%>
+
+    <div class="container">
+
+      <%= yield %>
+
+    </div>
+
   </body>
 </html>
