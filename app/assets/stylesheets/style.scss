@@ -50,9 +50,20 @@
 .bg-color{
   background-color: #F5F5F5;
 }
-a{
+.width-50{
+  width: 50%;
+}
+.center{
+  width:50%;
+  margin: 0 auto;
+}
+.no-line{
+  border: hidden;
+}
+
+button a{
   color: grey;
 }
-a:hover{
+button a:hover{
   color:white;
 }

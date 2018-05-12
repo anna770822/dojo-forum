@@ -1,13 +1,56 @@
-<%= @user_count%>
-<%= @post_count%>
-<%= @comment_count%>
-<br/>
-<% @popularposts.each do |popularpost|%>
-  <%= popularpost.title %>
-  <%= popularpost.updated_at%><br/>
-<%end%>
-<br/>
-<% @activeusers.each do |activeuser|%>
-  <%= activeuser.id%>
-  <%= activeuser.comment_counts%><br/>
-<%end%>
+<table class="table">
+  <thead>
+    <tr class="no-line">
+      <th class="text-center" scope="col">User</th>
+      <th class="text-center" scope="col">Post</th>
+      <th class="text-center" scope="col">Comment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="text-center"><div class="button-counts"><%= @user_count%></div></td>
+      <td class="text-center"><div class="button-counts"><%= @post_count%></div></td>
+      <td class="text-center"><div class="button-counts"><%= @comment_count%></div></td>
+    </tr>
+  </tbody>
+</table>
+<div class="col-xs-12clearfix">
+  <div class="col-md-6 float-left">
+    <div class=" text-center center bold ">Chatterbox</div>
+    <table class="table">
+      <% x = 0%>
+      <% @activeusers.each do |activeuser|%>
+        <tbody>
+          <tr class="no-line">
+            <td></td>
+            <td></td>
+            <td class="bold" scope="row">#<%= x +=1%></td>
+            <td><%= link_to activeuser.name, user_path(activeuser.id)%></td>
+            <td><%= activeuser.comment_counts%></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      <%end%>
+    </table>
+  </div>
+  <div class="col-md-6 float-left">
+    <div class=" text-center center bold ">Most Popuplar Post</div>
+    <table class="table">
+      <% x = 0%>
+      <% @popularposts.each do |popularpost|%>
+        <tbody>
+          <tr class="no-line">
+            <td></td>
+            <td></td>
+            <td class="bold" scope="row">#<%= x +=1%></td>
+            <td><%= link_to popularpost.title, post_path(popularpost.id) %></td>
+            <td> <%= popularpost.updated_at.strftime("%F")%></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      <%end%>
+    </table>
+  </div>
+</div>
