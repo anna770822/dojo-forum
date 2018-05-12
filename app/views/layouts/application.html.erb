@@ -22,6 +22,9 @@
     <% end %>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
+    <% if current_user %>
+      <p class="pull-right">你的 API Token：<code><%= current_user.authentication_token  %></code></p>
+    <% end %>
     <%= yield %>
     
   </body>
