@@ -1,26 +1,44 @@
 <div>
   <%= render partial: "shared/profile"%>
 </div>
-<ul class="nav nav-tabs">
-  <li class="nav-item">
-    <%= link_to "My Post", user_path(@user), class: "nav-link"%>
-  </li>
-  <li class="nav-item">
-    <%= link_to "My Comment", comments_user_path(@user), class: "nav-link active"%>
-  </li>
-  <li class="nav-item">
-    <%= link_to "My Collect", collects_user_path(@user), class: "nav-link"%>
-  </li>
-  <li class="nav-item">
-    <%= link_to "My Draft", drafts_user_path(@user), class: "nav-link"%>
-  </li>
-  <li class="nav-item">
-    <%= link_to "My Friend", friends_user_path(@user), class: "nav-link"%>
-  </li>
-</ul>
-<% @comments.each do |comment|%>
+<div>
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <%= link_to "My Post", user_path(@user), class: "nav-link"%>
+    </li>
+    <li class="nav-item">
+      <%= link_to "My Comment", comments_user_path(@user), class: "nav-link active"%>
+    </li>
+    <li class="nav-item">
+      <%= link_to "My Collect", collects_user_path(@user), class: "nav-link"%>
+    </li>
+    <li class="nav-item">
+      <%= link_to "My Draft", drafts_user_path(@user), class: "nav-link"%>
+    </li>
+    <li class="nav-item">
+      <%= link_to "My Friend", friends_user_path(@user), class: "nav-link"%>
+    </li>
+  </ul>
+</div>
+<table class="table table-hover">
+  <tbody>
+    <% @comments.each do |comment|%>
+      <tr>
+        <td class="text-center"><%= link_to comment.post.title, post_path(comment.post_id)%></td>
+        <td class="text-center"><%= comment.content%></td>
+        
+        <td class="text-center"><%= link_to "Edit",edit_post_comment_path(post_id: comment.post.id, comment_id: comment.id), class: "fas fa-edit btn btn-primary bold"%>
+        </td> 
+        <td class="text-center"><%= link_to "Delete",post_comment_path(post_id: comment.post.id, comment_id: comment.id), class: "fas fa-trash-alt btn btn-primary bold", method: :delete, data: { confirm: "Are You Sure？" }%>
+        </td>
+      </tr>
+    <%end%>
+  </tbody>
+</table>
+<div>
+  <%= link_to "New Post", new_post_path, class: "btn btn-primary"%>
+</div>
 
-<%= link_to comment.post.title, post_path(comment.post_id)%>
-<%= comment.content%>
-<%= comment.created_at%>
-<%end%>
+
+
+

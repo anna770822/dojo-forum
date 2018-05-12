@@ -1,25 +1,32 @@
 <div>
   <%= render partial: "shared/profile"%>
 </div>
-<ul class="nav nav-tabs">
-  <li class="nav-item">
-    <%= link_to "My Post", user_path(@user), class: "nav-link"%>
-  </li>
-  <li class="nav-item">
-    <%= link_to "My Comment", comments_user_path(@user), class: "nav-link"%>
-  </li>
-  <li class="nav-item">
-    <%= link_to "My Collect", collects_user_path(@user), class: "nav-link active"%>
-  </li>
-  <li class="nav-item">
-    <%= link_to "My Draft", drafts_user_path(@user), class: "nav-link"%>
-  </li>
-  <li class="nav-item">
-    <%= link_to "My Friend", friends_user_path(@user), class: "nav-link"%>
-  </li>
-</ul>
-<% @collections.each do |collection|%>
-  <%= collection.post.title%>
-  Published
-  <%= collection.post.updated_at%>
-<%end%>
+<div>
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <%= link_to "My Post", user_path(@user), class: "nav-link"%>
+    </li>
+    <li class="nav-item">
+      <%= link_to "My Comment", comments_user_path(@user), class: "nav-link"%>
+    </li>
+    <li class="nav-item">
+      <%= link_to "My Collect", collects_user_path(@user), class: "nav-link active"%>
+    </li>
+    <li class="nav-item">
+      <%= link_to "My Draft", drafts_user_path(@user), class: "nav-link"%>
+    </li>
+    <li class="nav-item">
+      <%= link_to "My Friend", friends_user_path(@user), class: "nav-link"%>
+    </li>
+  </ul>
+</div>
+<table class="table table-hover">
+  <tbody>
+    <% @collections.each do |collection|%>
+      <tr>
+        <td class="text-center"><%= link_to collection.post.title, post_path(collection.post)%></td>
+        <td class="text-center"><%= link_to "Uncollect", post_uncollect_path(collection.post), class: "btn btn-primary", method: :post%></td>
+      </tr>
+    <%end%>
+  </tbody>
+</table>

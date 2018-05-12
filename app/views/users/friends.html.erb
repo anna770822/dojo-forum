@@ -1,43 +1,50 @@
 <div>
   <%= render partial: "shared/profile"%>
 </div>
-<ul class="nav nav-tabs">
-  <li class="nav-item">
-    <%= link_to "My Post", user_path(@user), class: "nav-link"%>
-  </li>
-  <li class="nav-item">
-    <%= link_to "My Comment", comments_user_path(@user), class: "nav-link"%>
-  </li>
-  <li class="nav-item">
-    <%= link_to "My Collect", collects_user_path(@user), class: "nav-link"%>
-  </li>
-  <li class="nav-item">
-    <%= link_to "My Draft", drafts_user_path(@user), class: "nav-link"%>
-  </li>
-  <li class="nav-item">
-    <%= link_to "My Friend", friends_user_path(@user), class: "nav-link active"%>
-  </li>
-</ul>
-<h3>Waiting For Response</h3>
-<% @not_yet_accepted_friendships.each do |friendship|%>
-  <%= image_tag friendship.friend.check_avatar(friendship.friend)%>
-  <%= friendship.friend.name%>
-  <%= friendship.friend.id%>
-<%end%>
-
-<h3>Request</h3>
-<% @not_yet_responded_friendships.each do |friendship|%>
-  <%= image_tag friendship.user.check_avatar(friendship.user)%>
-  <%= friendship.user.name%>
-  <%= friendship.user.id%>
-  <%= link_to "Accept", accept_friendship_path(user_id: friendship.user.id, friend_id: current_user.id), method: :post%>
-  <%= link_to "Ignore", ignore_friendship_path(user_id: friendship.user.id, friend_id: current_user.id), method: :delete%>
-<%end%>
-
-<h3>Friends</h3>
-
-<% @friends.each do |friend|%>
-  <%= image_tag friend.check_avatar(friend)%>
-  <%= friend.name%>
-  <%= friend.id%>
-<%end%>
+<div>
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <%= link_to "My Post", user_path(@user), class: "nav-link"%>
+    </li>
+    <li class="nav-item">
+      <%= link_to "My Comment", comments_user_path(@user), class: "nav-link"%>
+    </li>
+    <li class="nav-item">
+      <%= link_to "My Collect", collects_user_path(@user), class: "nav-link"%>
+    </li>
+    <li class="nav-item">
+      <%= link_to "My Draft", drafts_user_path(@user), class: "nav-link"%>
+    </li>
+    <li class="nav-item">
+      <%= link_to "My Friend", friends_user_path(@user), class: "nav-link active"%>
+    </li>
+  </ul>
+</div>
+<div class="col-xs-12 margin-top-20">
+  <p class="text-center">Waiting For Response</p>
+  <% @not_yet_accepted_friendships.each do |friendship|%>
+    <div class="col-xs-12 col-md-3 text-center">
+      <%= image_tag friendship.friend.check_avatar(friendship.friend), class: "profile-size"%>
+      <p><%= friendship.friend.name%></p>
+    </div>
+  <%end%>
+</div>
+<div class="col-xs-12 margin-top-20">
+  <p class="text-center">Requests</p>
+  <% @not_yet_responded_friendships.each do |friendship|%>
+    <div class="col-xs-12 col-md-3 text-center">
+      <%= image_tag friendship.user.check_avatar(friendship.user), class: "profile-size"%>
+      <p><%= friendship.user.name%></p>
+      <%= link_to "Accept", accept_friendship_path(user_id: friendship.user.id, friend_id: current_user.id), class: "btn btn-outline-secondary margin-10", method: :post%>
+      <%= link_to "Ignore", ignore_friendship_path(user_id: friendship.user.id, friend_id: current_user.id), class: "btn btn-outline-secondary margin-10", method: :delete%>
+    </div>
+  <%end%>
+</div>
+<div class="col-xs-12 margin-top-20">
+  <p class="text-center">Friends</p>
+  <% @friends.each do |friend|%>
+    <div class="col-xs-12 col-md-3 text-center">
+    <%= image_tag friend.check_avatar(friend), class: "profile-size"%>
+    <p><%= friend.name%></p>
+  <%end%>
+</div>

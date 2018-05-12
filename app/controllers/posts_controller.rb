@@ -51,7 +51,7 @@ class PostsController < ApplicationController
       redirect_to root_path
     else
       @post.destroy
-      redirect_to user_path(current_user)
+      redirect_to drafts_user_path(current_user)
     end
   end
 
