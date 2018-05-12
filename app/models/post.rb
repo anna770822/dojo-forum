@@ -15,7 +15,7 @@ class Post < ApplicationRecord
   has_many :categories, through: :category_posts
 
   has_many :collections, dependent: :destroy
-  has_many :users, through: :collections
+  has_many :collection_users, through: :collections, source: :user
 
   scope :post_public, -> { where(public: true)}
 
@@ -31,5 +31,9 @@ class Post < ApplicationRecord
   def count_comment
     self.comment_counts = self.comments.size
     self.save
+  end
+
+  def is_collected?(user)
+    self.collection_users.include?(user)
   end
 end
