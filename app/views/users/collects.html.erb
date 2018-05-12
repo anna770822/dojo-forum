@@ -1,3 +1,23 @@
+<div>
+  <%= render partial: "shared/profile"%>
+</div>
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <%= link_to "My Post", user_path(@user), class: "nav-link"%>
+  </li>
+  <li class="nav-item">
+    <%= link_to "My Comment", comments_user_path(@user), class: "nav-link"%>
+  </li>
+  <li class="nav-item">
+    <%= link_to "My Collect", collects_user_path(@user), class: "nav-link active"%>
+  </li>
+  <li class="nav-item">
+    <%= link_to "My Draft", drafts_user_path(@user), class: "nav-link"%>
+  </li>
+  <li class="nav-item">
+    <%= link_to "My Friend", friends_user_path(@user), class: "nav-link"%>
+  </li>
+</ul>
 <% @collections.each do |collection|%>
   <%= collection.post.title%>
   Published

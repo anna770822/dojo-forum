@@ -1,3 +1,23 @@
+<div>
+  <%= render partial: "shared/profile"%>
+</div>
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <%= link_to "My Post", user_path(@user), class: "nav-link"%>
+  </li>
+  <li class="nav-item">
+    <%= link_to "My Comment", comments_user_path(@user), class: "nav-link"%>
+  </li>
+  <li class="nav-item">
+    <%= link_to "My Collect", collects_user_path(@user), class: "nav-link"%>
+  </li>
+  <li class="nav-item">
+    <%= link_to "My Draft", drafts_user_path(@user), class: "nav-link"%>
+  </li>
+  <li class="nav-item">
+    <%= link_to "My Friend", friends_user_path(@user), class: "nav-link active"%>
+  </li>
+</ul>
 <h3>Waiting For Response</h3>
 <% @not_yet_accepted_friendships.each do |friendship|%>
   <%= image_tag friendship.friend.check_avatar(friendship.friend)%>

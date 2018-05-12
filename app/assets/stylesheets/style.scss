@@ -17,3 +17,24 @@
   border-radius: 5px;
   padding: 5px 15px;
 }
+.profile-size{
+  width: 150px;
+  height: 150px;
+}
+.container-table{
+  display: table;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.container-table-cell{
+  display: table-cell;
+  
+  vertical-align: middle;
+}
+.height-200{
+  height:200px;
+}
+.temp{
+  border: 1px solid red;
+}
