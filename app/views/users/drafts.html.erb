@@ -27,10 +27,12 @@
         <td class="text-center"><%= link_to draft.title, edit_post_path(draft)%></td>
         <td class="text-center">Draft</td>
         <td class="text-center"><%= draft.updated_at.strftime("%F")%></td>
-        <td class="text-center"><%= link_to "Edit",edit_post_path(draft), class: "fas fa-edit btn btn-primary bold"%>
-        </td> 
-        <td class="text-center"><%= link_to "Delete",post_path(draft), class: "fas fa-trash-alt btn btn-primary bold", method: :delete, data: { confirm: "Are You Sure？" }%>
-        </td>
+        <% if draft.user == current_user%>
+          <td class="text-center"><%= link_to "Edit",edit_post_path(draft), class: "fas fa-edit btn btn-primary bold"%>
+          </td> 
+          <td class="text-center"><%= link_to "Delete",post_path(draft), class: "fas fa-trash-alt btn btn-primary bold", method: :delete, data: { confirm: "Are You Sure？" }%>
+          </td>
+        <%end%>
       </tr>
     <%end%>
   </tbody>

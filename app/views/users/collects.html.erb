@@ -25,7 +25,9 @@
     <% @collections.each do |collection|%>
       <tr>
         <td class="text-center"><%= link_to collection.post.title, post_path(collection.post)%></td>
-        <td class="text-center"><%= link_to "Uncollect", post_uncollect_path(collection.post), class: "btn btn-primary", method: :post%></td>
+        <% if collection.user == current_user%>
+          <td class="text-center"><%= link_to "Uncollect", post_uncollect_path(collection.post), class: "btn btn-primary", method: :post%></td>
+        <%end%>
       </tr>
     <%end%>
   </tbody>
