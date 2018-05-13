@@ -26,6 +26,10 @@ class UsersController < ApplicationController
     @collections = @user.collections.order(updated_at: :desc)
   end
 
+  def edit
+
+  end
+
   private
 
   def set_user

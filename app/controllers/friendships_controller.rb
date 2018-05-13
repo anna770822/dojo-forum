@@ -1,8 +1,12 @@
 class FriendshipsController < ApplicationController
   def create
     @friendship = current_user.not_yet_accepted_friendships.build(friend_id: params[:friend_id])
-    @friendship.save
-    redirect_to friends_user_path(current_user)
+    if @friendship.save
+     redirect_to friends_user_path(current_user)
+    else
+      redirect_to friends_user_path(current_user)
+      flash[:alert]= @friendship.errors.full_messages.to_sentence
+    end
   end
 
   def accept

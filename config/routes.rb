@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   
   resources :categories, only: [:show]
 
-  resources :users, only: [:show] do
+  resources :users, only: [:show, :edit] do
     member do 
       get :comments
       get :collects

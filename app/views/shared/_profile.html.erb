@@ -4,9 +4,14 @@
     <p><%= @user.name%></p>
   </div>
   <div class="col-xs-12 col-sm-12 col-md-9 float-left container-table height-200">
-    <div class="container-table-cell">
+    <div class="container-table-cell clearfix">
       <div class="">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum sit laborum itaque porro numquam ipsa vero nihil ducimus totam incidunt pariatur odio, sapiente accusamus. Officiis suscipit fugit dolorum, a autem.
       </div>
+      <% if @user == current_user%>
+        <%= link_to "Edit", edit_user_path(@user), class: "btn btn-outline-secondary float-right margin-top-20" %>
+      <% else%>
+         <%= link_to "Add Friend", friendships_path(friend_id: @user.id), class: "btn btn-outline-secondary margin-top-20 float-right", method: :post%>
+      <%end%>
     </div>
   </div>
 </div>
