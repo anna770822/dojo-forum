@@ -7,13 +7,14 @@ Rails.application.routes.draw do
     resources :comments
     post :collect
     post :uncollect
+    get  :edit_comment
   end
 
   root "posts#index"
   
   resources :categories, only: [:show]
 
-  resources :users, only: [:show, :edit] do
+  resources :users, only: [:show, :edit, :update] do
     member do 
       get :comments
       get :collects
