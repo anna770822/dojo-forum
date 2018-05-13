@@ -1,12 +1,12 @@
 <div class="clearfix margin-top-20 ">
   <div class="margin-top-20">
     <button class="btn btn-outline-secondary margin-10">Title: <%=@post.title %></button>
-    <button class="btn btn-outline-secondary float-right margin-10"><a href="#comment">Comment</a></button>
     <% if @post.is_collected?(current_user)%>
-      <%= link_to "Uncollect", post_uncollect_path(@post.id), class: "btn btn-outline-secondary float-right margin-10", method: :post%>
+    <%= link_to "Uncollect", post_uncollect_path(@post.id), class: "btn btn-outline-secondary float-right margin-10", remote: true, method: :post, id: "uncollect-#{@post.id}"%>
     <%else%>
-      <%= link_to "Collect", post_collect_path(@post.id), class: "btn btn-outline-secondary float-right margin-10", method: :post%>
+      <%= link_to "Collect", post_collect_path(@post.id), class: "btn btn-outline-secondary float-right margin-10", remote: true, method: :post, id: "collect-#{@post.id}"%>
     <%end%>
+    <button class="btn btn-outline-secondary float-right margin-10"><a href="#comment">Comment</a></button>
   </div>
 <div>
 <!--post-->

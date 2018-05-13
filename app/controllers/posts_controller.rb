@@ -80,14 +80,18 @@ class PostsController < ApplicationController
     @post = Post.find(params[:post_id])
     @collect = current_user.collections.build(post_id: @post.id)
     @collect.save
-    redirect_to post_path(@post)
+    respond_to do |format|
+      format.js
+    end
   end
 
   def uncollect
     @post = Post.find(params[:post_id])
     @collect = current_user.collections.where(post_id: @post.id)
     @collect.destroy_all
-    redirect_to post_path(@post)
+    respond_to do |format|
+      format.js
+    end
   end
 
   private
