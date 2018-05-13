@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 #create admin user
-  User.destroy_all
+  #User.destroy_all 這行不用 因為會檢查信箱一樣就不會建立
   User.create!(
     email: "admin@example.com", password: "12345678", role: "Admin"
     )
