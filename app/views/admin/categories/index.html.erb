@@ -1,13 +1,31 @@
-<%= link_to "User List" , admin_users_path %>
-<%= form_for [:admin, @category] do |f|%>
-  <%= f.label :name, "Category Name"%>
-  <%= f.text_field :name %>
-
-  <%= f.submit%>
-<%end%>
-
-<% @categories.each do |category|%>
-  <%= category.name %>
-  <%= link_to "Edit",  admin_categories_path(id: category.id)%>
-  <%= link_to "Delete", admin_category_path(category), method: :delete%>
-<%end%>
+<ul class="nav nav-tabs margin-top-20">
+  <li class="nav-item">
+    <%= link_to "Category List", admin_categories_path, class: "nav-link active"%>
+  </li>
+  <li class="nav-item">
+    <%= link_to "User List" , admin_users_path, class: "nav-link" %>
+  </li>
+</ul>
+<div class="margin-top-20 ">
+  <%= form_for [:admin, @category] do |f|%>
+    <%= f.text_field :name, placeholder: "Category Name", class: "form-control" %>
+    <%= f.submit class: "btn btn-primary margin-top-20"%>
+  <%end%>
+</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @categories.each do |category|%>
+      <tr>
+        <th scope="row"><%= category.name %></th>
+        <td><%= link_to "Edit",  admin_categories_path(id: category.id), class: "btn btn-primary"%>
+        <%= link_to "Delete", admin_category_path(category), method: :delete, class: "btn btn-primary"%></td>
+      </tr>
+    <%end%>
+  </tbody>
+</table>
