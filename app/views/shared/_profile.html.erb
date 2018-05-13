@@ -10,7 +10,16 @@
       <% if @user == current_user%>
         <%= link_to "Edit", edit_user_path(@user), class: "btn btn-outline-secondary float-right margin-top-20" %>
       <% else%>
-         <%= link_to "Add Friend", friendships_path(friend_id: @user.id), class: "btn btn-outline-secondary margin-top-20 float-right", method: :post%>
+
+        <% if current_user.friend?(@user)%>
+
+        <% elsif current_user.not_yet_accepted_friends?(@user)%>
+        
+        <% elsif current_user.not_yet_responded_friends?(@user)%>
+
+        <%else%>
+          <%= link_to "Add Friend", friendships_path(friend_id: @user_id), class: "btn-outline-secondary margin-top-20 float-right", method: :post%>
+        <%end%>
       <%end%>
     </div>
   </div>
