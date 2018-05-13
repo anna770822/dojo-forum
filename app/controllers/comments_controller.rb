@@ -29,6 +29,7 @@ class CommentsController < ApplicationController
 
   def update
     @comment = Comment.where(post_id: @post).find(params[:id])
+    @post = @comment.post
     if @comment.update_attributes(comment_params)
       redirect_to post_path(@post)
     else

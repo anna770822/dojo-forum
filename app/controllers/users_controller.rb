@@ -10,8 +10,8 @@ class UsersController < ApplicationController
   end
 
   def drafts
-   
-    @drafts = Post.where(public: false).order(updated_at: :desc)
+    
+    @drafts = Post.where(user_id: @user.id, public: false).order(updated_at: :desc)
   end
 
   def friends

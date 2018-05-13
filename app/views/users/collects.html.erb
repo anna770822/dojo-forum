@@ -26,9 +26,16 @@
       <tr>
         <td class="text-center"><%= link_to collection.post.title, post_path(collection.post)%></td>
         <% if collection.user == current_user%>
-          <td class="text-center"><%= link_to "Uncollect", post_uncollect_path(collection.post), class: "btn btn-primary", method: :post%></td>
+          <% if collection.post.is_collected?(current_user)%>
+            <td class="text-center"><%= link_to "Uncollect", post_uncollect_path(collection.post.id), class: "btn btn-outline-secondary float-right margin-10", remote: true, method: :post, id: "uncollect-#{collection.post.id}"%></td>
+          <%else%>
+            <td class="text-center"><%= link_to "Collect", post_collect_path(collection.post.id), class: "btn btn-outline-secondary float-right margin-10", remote: true, method: :post, id: "collect-#{collection.post.id}"%></td>
+          <%end%>
+  
         <%end%>
       </tr>
     <%end%>
   </tbody>
 </table>
+
+
