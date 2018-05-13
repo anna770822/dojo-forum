@@ -17,8 +17,8 @@
   <tbody>
     <% @users.each do |user|%>
       <tr>
-        <td><%= user.name %></td>
-        <td><%= user.email %></td>
+        <td class="bold"><%= user.name %></td>
+        <td class="bold"><%= user.email %></td>
         <td>
           <%= form_for [:admin, user], url: admin_user_path(id: user.id), method: :put do |f| %>
             <%= f.select :role, ["Admin","Normal"]%>
