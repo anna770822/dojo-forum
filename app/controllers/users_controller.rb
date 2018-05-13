@@ -26,13 +26,22 @@ class UsersController < ApplicationController
     @collections = @user.collections.order(updated_at: :desc)
   end
 
-  def edit
-
+  def update
+    if @user.update_attributes(user_params)
+      redirect_to user_path(current_user)
+    else
+      render :edit
+      flash[:alert]= @user.errors.full_messages.to_sentence
+    end
   end
 
   private
 
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def user_params
+    params.require(:user).permit(:name, :introduction, :avatar)
   end
 end

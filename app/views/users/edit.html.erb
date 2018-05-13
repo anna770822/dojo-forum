@@ -1,0 +1,18 @@
+<div class="margin-top-20">
+  <%= form_for @user do |f| %>
+    <div class="margin-top-20">
+    <%= f.text_field :name, placeholder: "Name", class: "form-control"%><br/>
+    <%= f.text_area :introduction, placeholder: "Introduce Your Self", class: "form-control"%><br/>
+    </div>
+    <div class="margin-top-20">
+      <%= f.file_field :avatar %><br/>
+      <%= image_tag @user.avatar, class: "upload-image margin-top-20" if @user.avatar? %>
+    </div>
+   
+    <div class="margin-top-20">
+
+      <%= f.submit "Submit", class: "btn-primary rounded" %>
+  
+    </div>
+  <%end%>
+</div>
