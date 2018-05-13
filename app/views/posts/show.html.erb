@@ -73,7 +73,7 @@
           <div class="clearfix">
             <% if current_user == comment.user || current_user.role == "Admin" %>
               <%= link_to "Delete", post_comment_path(post_id: @post.id, comment_id: comment.id), class: "fas fa-trash-alt btn btn-primary bold float-right margin-10", method: :delete, data: { confirm: "Are You Sure？" }%>
-              <%= link_to "Edit", edit_post_comment_path(post_id: @post.id, comment_id: comment.id),class: "fas fa-edit btn btn-primary bold float-right margin-10"%>
+              <%= link_to "Edit", post_path(post_id: @post.id, comment_id: comment.id),class: "fas fa-edit btn btn-primary bold float-right margin-10"%>
             <%end%>
           </div>
         </div>

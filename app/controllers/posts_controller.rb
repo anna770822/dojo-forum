@@ -40,7 +40,11 @@ class PostsController < ApplicationController
   end
 
   def show
-    @comment = Comment.new
+    if params[:comment_id]
+      @comment = Comment.find(params[:comment_id])
+    else
+      @comment = Comment.new
+    end
     @comments = Comment.where(post_id: @post.id).page(params[:page]).per(20).order(updated_at: :desc)
   end
 
@@ -89,6 +93,14 @@ class PostsController < ApplicationController
     @post = Post.find(params[:post_id])
     @collect = current_user.collections.where(post_id: @post.id)
     @collect.destroy_all
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def edit_comment
+    @post = Post.find(params[:post_id])
+    @comment = @post.comments.find(params[:comment_id])
     respond_to do |format|
       format.js
     end
