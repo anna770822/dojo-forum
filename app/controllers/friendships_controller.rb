@@ -8,12 +8,18 @@ class FriendshipsController < ApplicationController
   def accept
     @friendship = Friendship.where(user_id: params[:user_id],friend_id:current_user.id)
     @friendship.update(status: true)
-    redirect_to friends_user_path(current_user)
+    @user = User.find(params[:user_id])
+    respond_to do |format|
+      format.js
+    end
   end
 
   def ignore
     @friendship = Friendship.where(user_id: params[:user_id],friend_id:current_user.id)
     @friendship.destroy_all
-    redirect_to friends_user_path(current_user)
+    @user = User.find(params[:user_id])
+    respond_to do |format|
+      format.js
+    end
   end
 end

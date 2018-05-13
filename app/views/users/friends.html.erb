@@ -20,35 +20,35 @@
     </li>
   </ul>
 </div>
-<div class="col-xs-12 margin-top-20 clearfix">
-  <p class="text-center">Waiting For Response</p>
-  <% @not_yet_accepted_friendships.each do |friendship|%>
+<div class="col-xs-12 margin-top-20 clearfix border min-height-300 ">
+  <p class="text-center margin-top-20 bold">Waiting For Response</p>
+  <% @not_yet_accepted_friends.each do |user|%>
     <div class="col-xs-12 col-md-3 text-center float-left">
-      <%= image_tag friendship.friend.check_avatar(friendship.friend), class: "profile-size"%>
-      <p><%= friendship.friend.name%></p>
-      <p><%= friendship.friend.id%></p>
+      <%= image_tag user.check_avatar(user), class: "profile-size"%>
+      <p><%= user.name%></p>
+      <p><%= user.id%></p>
     </div>
   <%end%>
 </div>
-<div class="col-xs-12 margin-top-20 clearfix">
-  <p class="text-center">Requests</p>
-  <% @not_yet_responded_friendships.each do |friendship|%>
-    <div class="col-xs-12 col-md-3 text-center float-left">
-      <%= image_tag friendship.user.check_avatar(friendship.user), class: "profile-size"%>
-      <p><%= friendship.user.name%></p>
-      <p><%= friendship.user.id%></p>
-      <%= link_to "Accept", accept_friendship_path(user_id: friendship.user.id, friend_id: current_user.id), class: "btn btn-outline-secondary margin-10", method: :post%>
-      <%= link_to "Ignore", ignore_friendship_path(user_id: friendship.user.id, friend_id: current_user.id), class: "btn btn-outline-secondary margin-10", method: :delete%>
+<div class="col-xs-12 margin-top-20 clearfix border min-height-300">
+  <p class="text-center margin-top-20 bold">Requests</p>
+  <% @not_yet_responded_friends.each do |user|%>
+    <div class="col-xs-12 col-md-3 text-center float-left" id="user-<%=user.id%>">
+      <%= image_tag user.check_avatar(user), class: "profile-size"%>
+      <p><%= user.name%></p>
+      <p><%= user.id%></p>
+      <%= link_to "Accept", accept_friendship_path(user_id: user.id, friend_id: current_user.id), class: "btn btn-outline-secondary margin-10", method: :post, remote: true%>
+      <%= link_to "Ignore", ignore_friendship_path(user_id: user.id, friend_id: current_user.id), class: "btn btn-outline-secondary margin-10", method: :delete, remote: true%>
     </div>
   <%end%>
 </div>
-<div class="col-xs-12 margin-top-20 clearfix">
-  <p class="text-center">Friends</p>
-  <% @friends.each do |friend|%>
-    <div class="col-xs-12 col-md-3 float-left text-center">
-      <%= image_tag friend.check_avatar(friend), class: "profile-size"%>
-      <p class="text-center"><%= friend.name%></p>
-      <p><%= friend.id%></p>
+<div class="col-xs-12 margin-top-20 clearfix border min-height-300" id="friend">
+  <p class="text-center margin-top-20 bold">Friends</p>
+  <% @friends.each do |user|%>
+    <div class="col-xs-12 col-md-3 float-left text-center" id="user-<%=user.id%>">
+      <%= image_tag user.check_avatar(user), class: "profile-size"%>
+      <p class="text-center"><%= user.name%></p>
+      <p><%= user.id%></p>
     </div>
   <%end%>
 </div>

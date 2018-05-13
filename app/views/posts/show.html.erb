@@ -20,8 +20,9 @@
       <% elsif current_user.not_yet_accepted_friends?(@post.user)%>
 
       <% elsif current_user.not_yet_responded_friends?(@post.user)%>
-        <%= link_to "Accept", accept_friendship_path(user_id: @post.user.id, friend_id: current_user.id), class: "btn btn-outline-secondary", method: :post%>
-        <%= link_to "Ignore", ignore_friendship_path(user_id: @post.user.id, friend_id: current_user.id), class: "btn btn-outline-secondary", method: :delete%>
+        <%= link_to "Accept", accept_friendship_path(user_id: @post.user.id, friend_id: current_user.id), class: "btn btn-outline-secondary", method: :post, remote: true%>
+        <%= link_to "Ignore", ignore_friendship_path(user_id: @post.user.id, friend_id: current_user.id), class: "btn btn-outline-secondary", method: :delete, remote: true%>
+
       <%else%>
         <%= link_to "Add Friend", friendships_path(friend_id: @post.user_id), class: "btn btn-outline-secondary", method: :post%>
       <%end%>
